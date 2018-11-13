@@ -37,3 +37,8 @@ body > header {
 #select_intro {
 	vertical-align:top;
 }
+
+#success{
+	color:red;
+	display:inline;
+}

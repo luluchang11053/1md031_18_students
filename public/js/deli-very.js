@@ -19,20 +19,13 @@ var vm = new Vue({
     }.bind(this));
   },
   methods: {
-    getNext: function () {
-      var lastOrder = Object.keys(this.orders).reduce(function (last, next) {
-        return Math.max(last, next);
-      }, 0);
-      return lastOrder + 1;
-    },
-    addOrder: function (event) {
+    displayOrder: function (event) {
       var offset = {x: event.currentTarget.getBoundingClientRect().left,
                     y: event.currentTarget.getBoundingClientRect().top};
-      socket.emit("addOrder", { orderId: this.getNext(),
+      this.orders = {
                                 details: { x: event.clientX - 10 - offset.x,
-                                           y: event.clientY - 10 - offset.y },
-                                orderItems: ["Beans", "Curry"]
-                              });
+                                           y: event.clientY - 10 - offset.y }
+                              };
     }
   }
 });

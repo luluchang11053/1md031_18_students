@@ -33,7 +33,7 @@ app.get('/dispatcher', function (req, res) {
 // Store data in an object to keep the global namespace clean and 
 // prepare for multiple instances of data if necessary
 function Data() {
-  this.orders = {};
+  this.orders = [];
 }
 
 /*
@@ -41,7 +41,7 @@ function Data() {
 */
 Data.prototype.addOrder = function (order) {
   //Store the order in an "associative array" with orderId as key
-  this.orders[order.orderId] = order;
+  this.orders.push(order);
 };
 
 Data.prototype.getAllOrders = function () {

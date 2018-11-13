@@ -7,6 +7,8 @@
 		<script src="https://vuejs.org/js/vue.js"></script>
 		<script src="/js/menu.js"></script>
 		<script src="/js/js_script.js"></script>
+		<script src="/socket.io/socket.io.js" defer></script>		
+		<script src="js/deli-very.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -33,7 +35,7 @@
 							<td><img src="img/beef.jpg" height="300" width="300"/></td> -->
 						</tr>
 						<tr id='select_intro'>
-							<<td v-for="item in items">>
+							<td v-for="item in items">
 								<ul>
 								<li>{{ item.kCal }} kCal</li>
 								<li v-if="item.if_gluten">Contains gluten</li>
@@ -58,6 +60,11 @@
 							</td>							
 						</tr>
 					</tbody>
+					<tfoot>
+						<tr id='burger_order'>
+							<th v-for="item in items"><input type="checkbox" name="burgers" v-bind:value="item.name">Add to order</th>
+						</tr>					
+					</tfoot>
 				</table>				
 			</section>
 			
@@ -72,14 +79,14 @@
 					<p>
 						<label for="email">E-mail</label><br>					
 						<input type="email" id="email" name="em" required="required" placeholder="E-mail address">
-					</p>
+					<!-- </p>
 					<p>
 						<label for="street">Street</label><br>					
 						<input type="text" id="street" name="st" required="required" placeholder="Street name">
 					</p>
 					<p>
 						<label for="house">House</label><br>					
-						<input type="number" id="house" name="ho" required="required" placeholder="House number">
+						<input type="number" id="house" name="ho" required="required" placeholder="House number"> -->
 					</p>
 					<p>
 						<label for="payment">Payment options</label><br>
@@ -94,6 +101,17 @@
 						</select>
 					</p>
 					<p>
+						<label for="map">Indicate point</label><br>
+						<div class="view-box">
+						<div id="dots" v-on:click="displayOrder">
+							<div id="map"
+							  v-bind:style="{ left: orders.details.x + 'px', top: orders.details.y + 'px'}">
+							  {{key}}
+							</div>
+						</div>
+						</div>					
+					</p>
+					<p>
 						<label for="gender">Gender</label><br>
 						<input type="radio" name="gender" value="male" checked> Male<br>
 						<input type="radio" name="gender" value="female"> Female<br>
@@ -105,7 +123,12 @@
 					</div>
 				</form>
 			</section>
-				<section id='be_submitted'>
+				<section id='be_submitted'> <!-- order -->
+				<h2>Order confirmation <div id='success'></div></h2>
+				<h3>Customer details</h3>
+				<div id="customer_details"></div>
+				<h3>Order summary</h3>
+				<ul id="order_summary"></ul>
 			</section>			
 		</main>
 		<hr>
