@@ -7,17 +7,18 @@ var socket = io();
 var vm = new Vue({
   el: '#dots',
   data: {
-    orders: {},
+    orders: {details:{x:0,y:0}},
+      key:"T"
   },
-  created: function () {
-    socket.on('initialize', function (data) {
-      this.orders = data.orders;
-    }.bind(this));
+  // created: function () {
+  //   socket.on('initialize', function (data) {
+  //     this.orders = data.orders;
+  //   }.bind(this));
 
-    socket.on('currentQueue', function (data) {
-      this.orders = data.orders;
-    }.bind(this));
-  },
+  //   socket.on('currentQueue', function (data) {
+  //     this.orders = data.orders;
+  //   }.bind(this));
+  // },
   methods: {
     displayOrder: function (event) {
       var offset = {x: event.currentTarget.getBoundingClientRect().left,
