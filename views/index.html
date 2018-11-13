@@ -2,14 +2,14 @@
 <html lang="en">
 	<head>
 		<title>5Burgers</title>
-		<meta charset="utf-8"/>
-		<link href="/css/my.css" rel="stylesheet"/>
-		<link rel="stylesheet" href="css/deli-very.css">
-		<script src="https://vuejs.org/js/vue.js"></script>
-		<script src="/js/menu.js"></script>
-		<script src="/js/js_script.js"></script>
-		<script src="/socket.io/socket.io.js" defer></script>		
-		<script src="js/deli-very.js" defer></script>
+			<meta charset="utf-8"/>
+			<link href="/css/my.css" rel="stylesheet"/>
+			<link rel="stylesheet" href="css/deli-very.css">
+			<script src="/vue/vue.js" defer></script>
+			<script src="/js/menu.js"></script>
+			<script src="/js/js_script.js"></script>
+			<script src="/socket.io/socket.io.js" defer></script>		
+			<script src="js/deli-very.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -22,8 +22,8 @@
 				<table>
 					<thead>
 						<tr id='burger_name'>
-							<th v-for="item in items"><input type="checkbox" name="burgers" v-bind:value="item.name"> {{ item.name }} </th>
-<!-- 							<th>Veggie Burger </th>
+							<th v-for="item in items"> {{ item.name }} </th>
+							<!-- <th>Veggie Burger </th>
 							<th>Bacon Burger</th>
 							<th>Beef Burger</th> -->
 						</tr>
@@ -126,10 +126,31 @@
 			</section>
 				<section id='be_submitted'> <!-- order -->
 				<h2>Order confirmation <div id='success'></div></h2>
-				<h3>Customer details</h3>
+
+					<table id="order_confirmation_table">
+					<tr><th><h3>Customer details</h3></th></tr>
+					<tr id="customer_details">
+						<th v-for="(item,key) in items">
+							<div>#{{key+1}}</div>
+							<div>fullname: {{  item.fullname  }}</div>
+							<div>email: {{  item.email  }}</div>
+							<div>payment: {{  item.payment  }}</div>
+							<div>gender: {{  item.gender  }}</div>
+						</th>
+					</tr>
+					<tr><th><h3>Order summary</h3></th></tr>
+					<tr id="order_summary">
+						<th v-for="item in items">
+							<ul>
+								<li v-for="burger in item">{{burger}}</li>
+							</ul>
+						</th>
+					</tr>
+				</table>
+				<!-- <h3>Customer details</h3>
 				<div id="customer_details"></div>
 				<h3>Order summary</h3>
-				<ul id="order_summary"></ul>
+				<ul id="order_summary"></ul> -->
 			</section>			
 		</main>
 		<hr>

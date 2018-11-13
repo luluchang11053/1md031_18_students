@@ -53,6 +53,13 @@ window.onload = function () {
 		}
 	});
 
+	var burger_order_view = new Vue({
+		el: '#burger_order',
+		data:{
+			items: burger_names
+		}
+	});
+
 
 	var burger_img_view = new Vue({
 		el: '#select_image',
@@ -68,17 +75,48 @@ window.onload = function () {
 		}
 	});	
 
+	var customer_details_view = new Vue({
+		el: '#customer_details',
+		data:{
+			items: []
+		},		
+		created: function () {
+			socket.on('ordersMenu', function (data) {
+				this.items = data.orders;
+			}.bind(this));
+		}
 
+	});	
+	
+	var order_summary_view = new Vue({
+		el: '#order_summary',
+		data:{
+			items: []
+		},		
+		created: function () {
+			socket.on('ordersMenu', function (data) {
+				burgers = [];
+				for(var i=0;i<data.orders.length;i++){
+					burgers.push(data.orders[i].orderItems);
+				}
+				this.items = burgers;
+			}.bind(this));
+		}
+
+	});
+
+	var customer_details_list = [];
+	var burgers_list = [];
 	var burger_submit = new Vue({
 		el: '#orders',
 		methods: {
 			markDone: function() {
 
-				document.getElementById('customer_details').innerHTML="";
-				document.getElementById('order_summary').innerHTML="";
+				// document.getElementById('customer_details').innerHTML="";
+				// document.getElementById('order_summary').innerHTML="";
 				
 				// Read gender radio
-				var gender;
+				var gender="";
 				Total_Obj = document.getElementsByName('gender');
 				for (var i = 0; i < Total_Obj.length; i++) {
 					if (Total_Obj[i].type == "radio") {
@@ -89,12 +127,12 @@ window.onload = function () {
 				}
 				
 				// Read burger select
-				var burgers="";
+				var burgers=[];
 				Total_Obj = document.getElementsByName('burgers');
 				for (var i = 0; i < Total_Obj.length; i++) {
 					if (Total_Obj[i].type == "checkbox") {
 						if (Total_Obj[i].checked) {
-							burgers += Total_Obj[i].value+"  ";
+							burgers.push(Total_Obj[i].value);
 						}
 					}
 				}
@@ -117,19 +155,19 @@ window.onload = function () {
 					document.getElementById('success').innerHTML="Success!!";
 				}
 				
-				for(var i in submit_form){
-					var node = document.createElement("div");
-					var textnode = document.createTextNode(i+": "+submit_form[i]);
-					node.appendChild(textnode);
-					document.getElementById('be_submitted').appendChild(node);
-				}
+				// for(var i in submit_form){
+				// 	var node = document.createElement("div");
+				// 	var textnode = document.createTextNode(i+": "+submit_form[i]);
+				// 	node.appendChild(textnode);
+				// 	document.getElementById('be_submitted').appendChild(node);
+				// }
 
-				for(var i=0; i<burgers.length; i++){
-					var node = document.createElement("li");
-					var textnode = document.createTextNode(burgers[i]);
-					node.appendChild(textnode);
-					document.getElementById('order_summary').appendChild(node);
-				}
+				// for(var i=0; i<burgers.length; i++){
+				// 	var node = document.createElement("li");
+				// 	var textnode = document.createTextNode(burgers[i]);
+				// 	node.appendChild(textnode);
+				// 	document.getElementById('order_summary').appendChild(node);
+				// }
 
 				var map = document.getElementById('map');
 				var style = window.getComputedStyle(map);

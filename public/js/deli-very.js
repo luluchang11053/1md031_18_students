@@ -26,7 +26,7 @@ var vm = new Vue({
       this.orders = {
                                 details: { x: event.clientX - 10 - offset.x,
                                            y: event.clientY - 10 - offset.y }
-                              };
+                    };
     }
   }
 });
