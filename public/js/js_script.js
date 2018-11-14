@@ -84,10 +84,35 @@ window.onload = function () {
 			socket.on('ordersMenu', function (data) {
 				this.items = data.orders;
 			}.bind(this));
+
+			socket.on('mode', function (data) {
+				for(var i=0;i<this.items.length;i++){
+					if(this.items[i].idx==data.idx){
+						this.items[i].mode = data.mode;
+					}
+				}
+			}.bind(this));
 		}
 
 	});	
 	
+	var order_summary_view = new Vue({
+		el: '#order_summary',
+		data:{
+			items: []
+		},		
+		created: function () {
+			socket.on('ordersMenu', function (data) {
+				burgers = [];
+				for(var i=0;i<data.orders.length;i++){
+					burgers.push(data.orders[i].orderItems);
+				}
+				this.items = burgers;
+			}.bind(this));
+		}
+
+	});
+
 	var order_summary_view = new Vue({
 		el: '#order_summary',
 		data:{
@@ -174,15 +199,15 @@ window.onload = function () {
 				var left_x = style.getPropertyValue('left');
 				var top_y = style.getPropertyValue('top');
 				socket.emit("addOrder", {
-										
+										id:socket.id,
 										details: { x: parseFloat(left_x),
 												   y: parseFloat(top_y) },
 										orderItems: burgers,
 										fullname: submit_form.fullname,
 										gender: submit_form.gender,
 										email: submit_form.email,
-										payment: submit_form.payment
-										
+										payment: submit_form.payment,
+										mode:"preparing"
 									  });		
 			}
 		}
