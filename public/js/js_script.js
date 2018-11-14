@@ -1,3 +1,4 @@
+
 window.onload = function () {
 	
 	// class MenuItem {
@@ -113,22 +114,22 @@ window.onload = function () {
 
 	});
 
-	var order_summary_view = new Vue({
-		el: '#order_summary',
-		data:{
-			items: []
-		},		
-		created: function () {
-			socket.on('ordersMenu', function (data) {
-				burgers = [];
-				for(var i=0;i<data.orders.length;i++){
-					burgers.push(data.orders[i].orderItems);
-				}
-				this.items = burgers;
-			}.bind(this));
-		}
+	// var order_summary_view = new Vue({
+	// 	el: '#order_summary',
+	// 	data:{
+	// 		items: []
+	// 	},		
+	// 	created: function () {
+	// 		socket.on('ordersMenu', function (data) {
+	// 			burgers = [];
+	// 			for(var i=0;i<data.orders.length;i++){
+	// 				burgers.push(data.orders[i].orderItems);
+	// 			}
+	// 			this.items = burgers;
+	// 		}.bind(this));
+	// 	}
 
-	});
+	// });
 
 	var customer_details_list = [];
 	var burgers_list = [];
