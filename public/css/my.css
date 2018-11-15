@@ -13,10 +13,9 @@ body > header {
 	background-image: url(../img/titleback.jpg);
 	background-position: bottom;
 	background-size: cover; 
-
 	border:1px solid gray;
 	padding:8px;
-	
+	background-image: url(../img/titleback.jpg);
 	opacity: 0.5;
 	
 }
