@@ -41,6 +41,7 @@ body > header {
 #success{
 	color:red;
 	display:inline;
+}
 
 #order_confirmation_table{
 	text-align: left;
