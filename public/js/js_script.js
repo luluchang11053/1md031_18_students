@@ -178,6 +178,8 @@ window.onload = function () {
 					return;
 				}
 				else{
+					customer_details_list.push(submit_form);
+					burgers_list.push(burgers)
 					document.getElementById('success').innerHTML="Success!!";
 				}
 				
